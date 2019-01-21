@@ -4,10 +4,30 @@ const user = {
 
     },
     mutations: {
-  
+
     },
     actions: {
-  
+        GetToken() {
+            return true;
+        },
+        GetUserInfo(context, payload) {
+            return new Promise((res, rej) => {
+                if(true) {
+                    res();
+                }else{
+                    rej('没有登录');
+                }
+            })
+        },
+        FedLogOut(){
+            return new Promise((res, rej) => {
+                if(true) {
+                    res();
+                }else{
+                    rej();
+                }
+            })
+        }
     }
 }
 

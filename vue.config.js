@@ -11,6 +11,7 @@ const externals = {
     'vuex': 'Vuex',
     'axios': 'axios',
     'element-ui': 'ELEMENT',
+    'nprogress': 'NProgress' // 页面加载的进度条插件
 }
 
 const cdn = {
@@ -34,6 +35,7 @@ const cdn = {
             'https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js',
             'https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js',
             'https://unpkg.com/element-ui/lib/index.js',
+            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js'
         ]
     }
 }
