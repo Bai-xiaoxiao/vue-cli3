@@ -1,8 +1,44 @@
-const path = require('path')
+// const path = require('path')
 
-function resolve(dir) {
-  return path.join(__dirname, './', dir)
+// function resolve(dir) {
+//   return path.join(__dirname, './', dir)
+// }
+
+// cdn预加载使用
+const externals = {
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'vuex': 'Vuex',
+    'axios': 'axios',
+    'element-ui': 'ELEMENT',
 }
+
+const cdn = {
+    // 开发环境
+    dev: {
+        css: [
+            'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
+            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css'
+        ],
+        js: []
+    },
+    // 生产环境
+    build: {
+        css: [
+            'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
+            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css'
+        ],
+        js: [
+            'https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js',
+            'https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js',
+            'https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js',
+            'https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js',
+            'https://unpkg.com/element-ui/lib/index.js',
+        ]
+    }
+}
+
+
 module.exports = {
     // 不同环境的不同地址
     publicPath: process.env.NODE_ENV === 'development' ? '/api/' : 'http://192.168.250.107:8082',
@@ -20,7 +56,36 @@ module.exports = {
             return args
         })
 
+
+        // 添加CDN参数到htmlWebpackPlugin配置中， 详见public/index.html修改
+        config.plugin('html').tap(args => {
+            if (process.env.NODE_ENV === 'production') {
+                args[0].cdn = cdn.build
+            }
+            if (process.env.NODE_ENV === 'development') {
+                args[0].cdn = cdn.dev
+            }
+            return args
+        })
+
     },
+
+    // 修改webpack config, 使其不打包externals下的资源
+    configureWebpack: config => {
+        const myConfig = {}
+        if (process.env.NODE_ENV === 'production') {
+            // 1. 生产环境npm包转CDN
+            myConfig.externals = externals
+        }
+        if (process.env.NODE_ENV === 'development') {
+            // 关闭host check，方便使用ngrok之类的内网转发工具
+            myConfig.devServer = {
+                disableHostCheck: true
+            }
+        }
+        return myConfig
+    },
+
 
     // dev
     devServer: {
