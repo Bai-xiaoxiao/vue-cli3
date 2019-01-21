@@ -3,10 +3,23 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <h3 class="animated rollIn delay-1s">animate.css动画</h3>
     </div>
+    <!-- 路由视图 -->
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  data(){
+    return{
+
+    }
+  }
+}
+</script>
+
 
 <style lang="scss">
 #app {
@@ -24,6 +37,11 @@
     &.router-link-exact-active {
       color: #42b983;
     }
+  }
+  .animated{
+    background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
   }
 }
 </style>
