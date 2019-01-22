@@ -15,20 +15,18 @@ Vue.use(Router)
 
 const route =  new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  // base: process.env.BASE_URL,
+  // url上面的/#/可以替换为其他的
+  // base: '', 
   routes: [
     {
       path: '/',
-      name: 'home',
       component: Home
     },
     {
       path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      // 路由模块lazyLoad
+      component: () => import('./views/About.vue')
     }
   ]
 })
@@ -46,12 +44,11 @@ route.beforeEach((to, from, next) => {
       store.dispatch('GetUserInfo').then(res => {
         next()
       }).catch(err => {
-        store.dispatch('FedLogOut').then(() => {
-          Message.error('拉取用户信息失败，请重新登录！' + err)
-          next({
-            path: '/'
-          })
-        })
+        Message.error('拉取用户信息失败，请重新登录！' + err)
+          // next({
+          //   path: '/'
+          // })
+          next()
       })
     }
   } else {

@@ -19,7 +19,8 @@ const cdn = {
     dev: {
         css: [
             'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
-            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css'
+            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
+            'https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css',
         ],
         js: []
     },
@@ -27,7 +28,8 @@ const cdn = {
     build: {
         css: [
             'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
-            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css'
+            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
+            'https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css',
         ],
         js: [
             'https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js',
@@ -43,7 +45,8 @@ const cdn = {
 
 module.exports = {
     // 不同环境的不同地址
-    publicPath: process.env.NODE_ENV === 'development' ? '/api/' : 'http://192.168.250.107:8082',
+    // 打开之后访问本地代码的话需要http://localhost:8080/api/才可以
+    // publicPath: process.env.NODE_ENV === 'development' ? '/api/' : 'http://192.168.250.107:8082',
 
     // 默认在生成的静态资源文件名中包含hash以控制缓存
     filenameHashing: true,
@@ -82,7 +85,7 @@ module.exports = {
         if (process.env.NODE_ENV === 'development') {
             // 关闭host check，方便使用ngrok之类的内网转发工具
             myConfig.devServer = {
-                disableHostCheck: true
+                disableHostCheck: false
             }
         }
         return myConfig

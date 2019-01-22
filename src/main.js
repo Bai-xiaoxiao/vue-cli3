@@ -4,6 +4,13 @@ import router from './router'
 import store from './store'
 import service from './utils/request'
 
+import ElementUI from 'element-ui';
+Vue.use(ElementUI);
+
+// 自己的通用样式
+import './assets/css/normalize.css'
+import './assets/css/common.css'
+
 Vue.config.productionTip = false
 
 // service
