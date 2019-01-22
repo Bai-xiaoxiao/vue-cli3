@@ -17,14 +17,15 @@
         </el-header>
         <el-main>
 
-          <el-tabs type="border-card" closable @tab-remove="removeTab">
-            <el-tab-pane>
+          <el-tabs type="border-card" editable @tab-click="clickTab" @tab-remove="removeTab">
+            <!-- 带图标的tab -->
+            <!-- <el-tab-pane>
               <span slot="label">
                 <i class="el-icon-date"></i> 我的行程
               </span>
               我的行程
-            </el-tab-pane>
-            <el-tab-pane v-for="i in 3" label="消息中心"></el-tab-pane>
+            </el-tab-pane> -->
+            <el-tab-pane v-for="(item, index) in tabRoute" :label="item" :key="index"></el-tab-pane>
           </el-tabs>
 
           <transition name="el-fade-in-linear">
@@ -41,7 +42,40 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      tabIndex: 0,
+      tabRoute:[]
+    };
+  },
+  methods:{
+    clickTab(tab){
+      // tab.index是下标
+      if(tab.index == this.tabIndex){
+        return;
+      }
+
+      // let {tabIndex} = this;
+      // 结构赋值之后，相当于重新var一个出来，
+      // tabIndex != this.tabIndex
+      // 结构复制的对象可以读取值，但是最好不要赋值
+      // 必须加上this
+      this.tabIndex = tab.index;
+      
+      this.$notify.info({
+        title: '标签切换',
+        message: `当前下标是：${this.tabIndex}`
+      });
+      // 下标变化时，获取到标签页里的所有路由数组,然后根据数组下标执行
+      this.$router.push(this.tabRoute[this.tabIndex])
+    },
+  },
+  watch:{
+    $route(to, from) {
+      // 没有找到才增加
+      if(this.tabRoute.indexOf(to.fullPath) < 0){
+        this.tabRoute.push(to.fullPath);
+      }
+    },
   },
   components: {
     // 侧边栏
@@ -51,7 +85,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
   height: 100%;
   .appContainer {
