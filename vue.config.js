@@ -22,10 +22,12 @@ const cdn = {
             'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
             'https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css',
         ],
+        
         js: []
     },
     // 生产环境
     build: {
+        // 顺序对应上面的externals
         css: [
             'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
             'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
@@ -47,6 +49,9 @@ module.exports = {
     // 不同环境的不同地址
     // 打开之后访问本地代码的话需要http://localhost:8080/api/才可以
     // publicPath: process.env.NODE_ENV === 'development' ? '/api/' : 'http://192.168.250.107:8082',
+    // 这里显示的地址是打包之后访问的文件目录的url的后缀   www.baidu.com/dist/xxx
+    // http://localhost:8080/bxd/#/
+    publicPath: process.env.NODE_ENV === 'development' ? '/bxd/' : '/dist/',
 
     // 默认在生成的静态资源文件名中包含hash以控制缓存
     filenameHashing: true,
@@ -57,7 +62,13 @@ module.exports = {
             const argv = process.argv
             const mode = argv[argv.indexOf('--project-mode') + 1]
             args[0]['process.env'].MODE = `"${mode}"`
-            args[0]['process.env'].BASE_API = '"/api"'
+            if (process.env.NODE_ENV === 'production') {
+                args[0]['process.env'].BASE_API = '"/正式地址"'
+            }
+            if (process.env.NODE_ENV === 'development') {
+                // dev指向代理地址
+                args[0]['process.env'].BASE_API = '"/api"'
+            }
             return args
         })
 
@@ -100,7 +111,7 @@ module.exports = {
         // proxy: 'http://localhost:4000' // 配置跨域处理,只有一个代理
         proxy: {
             '/api': {
-                target: 'http://api.beta.ssaini.cn', //源地址
+                target: ' https://easy-mock.com/mock/5a94151094f6e604a7462e4e/bxd', //mock源地址
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': '/' //路径重写

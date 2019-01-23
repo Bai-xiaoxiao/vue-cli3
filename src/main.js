@@ -2,7 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import service from './utils/request'
+// 没有设置api管理 直接写方便
+// import service from './utils/http/request'
+// service
+// Vue.prototype.$http = service
+
+// 设置api管理 管理清晰
+import api from './utils/api/index'
+Vue.prototype.$api = api
 
 import ElementUI from 'element-ui';
 Vue.use(ElementUI);
@@ -13,8 +20,7 @@ import './assets/css/common.css'
 
 Vue.config.productionTip = false
 
-// service
-Vue.prototype.$http = service
+
 
 // animateCSS
 // this.$animate('.my-element', 'bounce', (){.....})
@@ -37,9 +43,16 @@ new Vue({
   router,
   store,
   created(){
-    this.$http.post(`/api/v1/member/sendCode`, {
-      member_mobile: 18244242739
-    })
+    // this.$http.post(`/api/v1/member/sendCode`, {
+    //   member_mobile: 18244242739
+    // })
+
+    // 测试api管理模块
+    // this.$api.shop.shopDetails({
+    //   params: 111
+    // }).then(res =>{
+
+    // });
   },
   render: h => h(App)
 }).$mount('#app')

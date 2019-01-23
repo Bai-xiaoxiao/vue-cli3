@@ -5,7 +5,6 @@ import Home from './views/Home.vue'
 import store from './store'
 
 import NProgress from 'nprogress' // 进度条
-import 'nprogress/nprogress.css' // 进度条样式
 
 import {
   Message
@@ -14,19 +13,29 @@ import {
 Vue.use(Router)
 
 const route =  new Router({
-  mode: 'history',
-  // base: process.env.BASE_URL,
-  // url上面的/#/可以替换为其他的
+  // 用history之后服务端需要加配置
+  // mode: 'history',
+  // 这里对应域名后拼接的部分在vue.config的publicPath设置
+  // http://localhost:8080/bxd/#/
+  base: process.env.BASE_URL,
   // base: '', 
   routes: [
     {
       path: '/',
+      name: '主页',
       component: Home
     },
     {
       path: '/about',
+      name: '关于我们',
       // 路由模块lazyLoad
       component: () => import('./views/About.vue')
+    },
+    // 店铺页面
+    {
+      path: '/shopIndex',
+      name: '店铺列表',
+      component: () => import('./views/shop/ShopIndex.vue'),
     }
   ]
 })

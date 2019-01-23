@@ -32,10 +32,17 @@
       </el-submenu>
 
     </el-submenu>
-    <el-menu-item index="2">
-      <i class="el-icon-menu"></i>
-      <span slot="title">导航二</span>
-    </el-menu-item>
+    <el-submenu index="2">
+      <template slot="title">
+        <i class="el-icon-location"></i>
+        <span>展开这里</span>
+      </template>
+        <el-menu-item-group>
+            <el-menu-item v-for="(item, index) in menuData2" :key="`1-${index}`" :index="`1-${index}`" @click="routerLink(item.path)">
+                {{item.name}}
+            </el-menu-item>
+        </el-menu-item-group>
+    </el-submenu>
     <el-menu-item index="3" disabled>
       <i class="el-icon-document"></i>
       <span slot="title">导航三</span>
@@ -70,11 +77,24 @@ export default {
             default:[
                 // 假设只有一级
                 {
-                    name: 'hello',
+                    name: '主页',
                     path: '/'
                 },
                 {
-                    name: 'anout',
+                    name: '关于我们',
+                    path: '/about'
+                }
+            ]
+        },
+        menuData2:{
+            default:[
+                // 假设只有一级
+                {
+                    name: '表格',
+                    path: '/shopIndex'
+                },
+                {
+                    name: '关于我们',
                     path: '/about'
                 }
             ]
