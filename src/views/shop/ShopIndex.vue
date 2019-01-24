@@ -14,7 +14,9 @@
         </template>
         <!-- 自定义内容 -->
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleClick(scope)">编辑</el-button>
+          <el-tooltip class="item" effect="dark" content="可以在这里编辑本条内容" placement="top-start">
+            <el-button size="mini" @click="handleClick(scope)">编辑</el-button>
+          </el-tooltip>
           <el-button size="mini" type="danger" @click="del(scope)">删除</el-button>
         </template>
       </el-table-column>

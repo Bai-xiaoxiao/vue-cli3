@@ -8,7 +8,7 @@ export default {
     },
 
     // 文章详情
-    articleDetails(){
+    articleDetails(params){
         return service.post(`/article/articleDetails`,{
             params: params
         });

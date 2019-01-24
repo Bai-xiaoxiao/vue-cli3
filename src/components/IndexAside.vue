@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="nowMenu" class="index-aside" @open="handleOpen" @close="handleClose">
+  <el-menu :default-active="nowMenu" class="index-aside">
     <el-submenu index="1">
       <template slot="title">
         <i class="el-icon-location"></i>

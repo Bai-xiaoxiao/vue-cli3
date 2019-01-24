@@ -31,12 +31,20 @@
             </el-tab-pane> -->
             <el-tab-pane v-for="(item, index) in tabRoute" :label="item.name" :name="item.name" :key="index"></el-tab-pane>
           </el-tabs>
+          
+          <!-- 过渡动画 -->
+          <transition name="el-fade-in-linear" >
+            <!-- 是否缓存 -->
+              <keep-alive>
+                <!-- !!!判断加在keep-alive上无效 -->
+                <router-view v-if="$route.meta.keepAlive" />
+              </keep-alive>
+          </transition>
 
           <transition name="el-fade-in-linear">
-            <keep-alive>
-              <router-view/>
-            </keep-alive>
+            <router-view  v-if="!$route.meta.keepAlive" />
           </transition>
+
         </el-main>
       </el-container>
     </el-container>

@@ -35,6 +35,9 @@ const route =  new Router({
     {
       path: '/shopIndex',
       name: '店铺列表',
+      meta:{
+        keepAlive: true
+      },
       component: () => import('./views/shop/ShopIndex.vue'),
     }
   ]
@@ -42,6 +45,7 @@ const route =  new Router({
 
 const whiteList = ['/login'] // 不重定向白名单
 route.beforeEach((to, from, next) => {
+  // 进度条开始
   NProgress.start()
   if (store.dispatch('GetToken')) {
     if (to.path === '/login') {
