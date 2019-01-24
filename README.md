@@ -1,26 +1,26 @@
 # vue-node
 
-## Project setup
+## 安装项目
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 本地热更新模式
 ```
 yarn run serve
 ```
 
-### Compiles and minifies for production
+### 生产模式
 ```
 yarn run build
 ```
 
-### Run your tests
+### 执行test
 ```
 yarn run test
 ```
 
-### Lints and fixes files
+### eslint
 ```
 yarn run lint
 ```
