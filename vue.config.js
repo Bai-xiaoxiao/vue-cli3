@@ -19,8 +19,10 @@ const cdn = {
     dev: {
         css: [
             'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
-            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
-            'https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css',
+            // 'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
+            'https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js',
+            // 'https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css',
+            'https://cdn.jsdelivr.net/npm/animate.css@3.7.0/animate.min.css'
         ],
         
         js: []
@@ -30,8 +32,10 @@ const cdn = {
         // 顺序对应上面的externals
         css: [
             'https://unpkg.com/element-ui/lib/theme-chalk/index.css',
-            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
-            'https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css',
+            // 'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css',
+            'https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js',
+            // 'https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css',
+            'https://cdn.jsdelivr.net/npm/animate.css@3.7.0/animate.min.css'
         ],
         js: [
             'https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js',
@@ -39,7 +43,8 @@ const cdn = {
             'https://cdn.jsdelivr.net/npm/vuex@3.0.1/dist/vuex.min.js',
             'https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js',
             'https://unpkg.com/element-ui/lib/index.js',
-            'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js'
+            // 'https://cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js'
+            'https://unpkg.com/nprogress@0.2.0/nprogress.js'
         ]
     }
 }
