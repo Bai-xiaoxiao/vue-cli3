@@ -1,15 +1,14 @@
 // 该模块用于储存用户状态  是否登录，或者token之类的东西
 const user = {
     state: {
-
+        userToken:'',
     },
     mutations: {
-
+        GetToken(context, payload) {
+            return context.userToken;
+        },
     },
     actions: {
-        GetToken() {
-            return true;
-        },
         GetUserInfo(context, payload) {
             return new Promise((res, rej) => {
                 if(true) {

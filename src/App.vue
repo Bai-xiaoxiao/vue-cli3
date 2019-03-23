@@ -7,7 +7,7 @@
     </div>
     <router-view/>-->
     <!-- 总体布局模式 -->
-    <el-container class="appContainer">
+    <el-container class="appContainer" v-if="!mainRoute">
       <!-- 侧边栏 -->
       <el-aside width="200px">
         <index-aside></index-aside>
@@ -15,39 +15,48 @@
       <!-- 主体 -->
       <el-container>
         <!-- 头部 -->
-        <el-header>
-          header
-        </el-header>
+        <el-header>header</el-header>
         <el-main>
-          
           <!-- tabs -->
-          <el-tabs type="card" v-model="nowTabs" closable @tab-click="clickTab" @tab-remove="removeTab">
+          <el-tabs
+            type="card"
+            v-model="nowTabs"
+            closable
+            @tab-click="clickTab"
+            @tab-remove="removeTab"
+          >
             <!-- 带图标的tab -->
             <!-- <el-tab-pane>
               <span slot="label">
                 <i class="el-icon-date"></i> 我的行程
               </span>
               我的行程
-            </el-tab-pane> -->
-            <el-tab-pane v-for="(item, index) in tabRoute" :label="item.name" :name="item.name" :key="index"></el-tab-pane>
+            </el-tab-pane>-->
+            <el-tab-pane
+              v-for="(item, index) in tabRoute"
+              :label="item.name"
+              :name="item.name"
+              :key="index"
+            ></el-tab-pane>
           </el-tabs>
-          
+
           <!-- 过渡动画 -->
-          <transition name="el-fade-in-linear" >
+          <transition name="el-fade-in-linear">
             <!-- 是否缓存 -->
-              <keep-alive>
-                <!-- !!!判断加在keep-alive上无效 -->
-                <router-view v-if="$route.meta.keepAlive" />
-              </keep-alive>
+            <keep-alive>
+              <!-- !!!判断加在keep-alive上无效 -->
+              <router-view v-if="$route.meta.keepAlive"/>
+            </keep-alive>
           </transition>
 
           <transition name="el-fade-in-linear">
-            <router-view  v-if="!$route.meta.keepAlive" />
+            <router-view v-if="!$route.meta.keepAlive"/>
           </transition>
-
         </el-main>
       </el-container>
     </el-container>
+
+    <router-view/>
   </div>
 </template>
 
@@ -56,14 +65,19 @@ export default {
   data() {
     return {
       tabIndex: 0,
-      tabRoute:[],
-      nowTabs:'店铺列表',
+      tabRoute: [],
+      nowTabs: "店铺列表"
     };
   },
-  methods:{
-    clickTab(tab){
+  computed: {
+    mainRoute() {
+      return this.$route.meta.notMain;
+    }
+  },
+  methods: {
+    clickTab(tab) {
       // tab.index是下标
-      if(tab.index == this.tabIndex){
+      if (tab.index == this.tabIndex) {
         return;
       }
 
@@ -73,36 +87,36 @@ export default {
       // 解构赋值的对象可以读取值，但是最好不要赋值
       // 必须加上this
       this.tabIndex = tab.index;
-      
+
       this.$notify.info({
-        title: '标签切换',
+        title: "标签切换",
         message: `当前下标是：${this.tabIndex}`
       });
       // 下标变化时，获取到标签页里的所有路由数组,然后根据数组下标执行
-      this.$router.push(this.tabRoute[this.tabIndex].path)
+      this.$router.push(this.tabRoute[this.tabIndex].path);
     },
     removeTab(tabName) {
-        // 删除对应
-        this.tabRoute.find((value, index, arr) => {
-          if(value.name == tabName){
-            this.tabRoute.splice(index,1);
-          }
-          return value.name == tabName
-        })
-        
-        // 删除之后后退一步
-        this.$router.go(-1);
-    }
-  },
-  watch:{
-    $route(to, from) {
-      // 没有找到才增加
-      let res = this.tabRoute.every((item) => {
-          return item.path !=  to.fullPath;
+      // 删除对应
+      this.tabRoute.find((value, index, arr) => {
+        if (value.name == tabName) {
+          this.tabRoute.splice(index, 1);
+        }
+        return value.name == tabName;
       });
 
-      if(res){
-         this.tabRoute.push({
+      // 删除之后后退一步
+      this.$router.go(-1);
+    }
+  },
+  watch: {
+    $route(to, from) {
+      // 没有找到才增加
+      let res = this.tabRoute.every(item => {
+        return item.path != to.fullPath;
+      });
+
+      if (res) {
+        this.tabRoute.push({
           name: to.name,
           path: to.fullPath
         });
@@ -110,13 +124,12 @@ export default {
 
       // 点击菜单定位到当前tab
       this.tabRoute.find((value, index, arr) => {
-        if(value.path == to.fullPath){
+        if (value.path == to.fullPath) {
           this.nowTabs = value.name;
         }
-        return value.path == to.fullPath
-      })
-      
-    },
+        return value.path == to.fullPath;
+      });
+    }
   },
   components: {
     // 侧边栏
@@ -128,9 +141,24 @@ export default {
 
 <style lang="scss" scoped>
 #app {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   height: 100%;
   .appContainer {
     height: 100%;
   }
+}
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  height: 0;
+  font-size: 0;
 }
 </style>
