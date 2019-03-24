@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
+    <el-form :label-position="labelPosition" label-width="80px">
       <el-form-item label="用户名">
         <el-input v-model="userMsg.userName"></el-input>
       </el-form-item>
@@ -35,10 +35,21 @@ export default {
   methods: {
     login() {
       this.toggleBtnSyle();
-      let timer = setTimeout(()=>{
-          this.$message.error('登录失败');
-          this.toggleBtnSyle();
-      },2000);
+
+      // 遇到了跨域问题。。。。。
+      // 在vue.config.js中配置proxy代理，然后把axios中的baseUrl指定为/api
+      // proxy中repath。把/api指向了实际的服务器地址
+      this.$http.post('/login',{
+          name: this.userMsg.userName,
+          password: this.userMsg.password
+      }).then(res=>{
+          console.log(res);
+          this.$store.commit('SaveToken',{userToken: res.data.token});
+          this.$router.push('/about');
+      }).catch(err=>{
+        this.toggleBtnSyle();
+      });
+
     },
     toggleBtnSyle(){
         this.isIng = !this.isIng;

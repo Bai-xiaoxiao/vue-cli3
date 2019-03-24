@@ -3,9 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // 没有设置api管理 直接写方便
-// import service from './utils/http/request'
+import service from './utils/http/request'
+console.log(service.baseURL);
 // service
-// Vue.prototype.$http = service
+Vue.prototype.$http = service
 
 // 设置api管理 管理清晰
 import api from './utils/api/index'

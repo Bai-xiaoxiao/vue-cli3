@@ -14,7 +14,7 @@ Vue.use(Router)
 
 const route =  new Router({
   // 用history之后服务端需要加配置
-  mode: 'history',
+  // mode: 'history',
   // 这里对应域名后拼接的部分在vue.config的publicPath设置
   // http://localhost:8080/bxd/#/
   base: process.env.BASE_URL,
@@ -55,8 +55,8 @@ const route =  new Router({
 const whiteList = ['/login'] // 不重定向白名单
 route.beforeEach((to, from, next) => {
   // 进度条开始
-  NProgress.start()
-  if (store.commit('GetToken')) {
+  NProgress.start();
+  if (store.state.user.userToken) {
     if (to.path === '/login') {
       next({
         path: '/'

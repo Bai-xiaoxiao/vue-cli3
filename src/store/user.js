@@ -5,8 +5,12 @@ const user = {
     },
     mutations: {
         GetToken(context, payload) {
+            debugger
             return context.userToken;
         },
+        SaveToken(context, payload){
+            context.userToken = payload.userToken;
+        }
     },
     actions: {
         GetUserInfo(context, payload) {

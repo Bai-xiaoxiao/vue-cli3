@@ -103,20 +103,31 @@ module.exports = {
 
     // dev
     devServer: {
-        host: 'localhost',
+        // host: 'localhost',
         https: false, // https:{type:Boolean}
         open: false, //配置自动启动浏览器
-        // proxy: 'http://localhost:4000' // 配置跨域处理,只有一个代理
+        // proxy: 'http://localhost:8888' // 配置跨域处理,只有一个代理
+        // proxy: {
+        //     '/api': {
+        //         target: 'http://localhost:8888', //mock源地址
+        //         changeOrigin: true,
+        //         pathRewrite: {
+        //             '^/api': '/' //路径重写
+        //         }
+        //     },
+        // },
         proxy: {
             '/api': {
-                target: ' https://easy-mock.com/mock/5a94151094f6e604a7462e4e/bxd', //mock源地址
+                target: 'http://localhost:8888',
                 changeOrigin: true,
+                ws: true,
                 pathRewrite: {
-                    '^/api': '/' //路径重写
+                  '^/api': '/'
                 }
-            },
-        },
+            }
+        }
     },
+
 
     // 第三方插件配置
     pluginOptions: {}

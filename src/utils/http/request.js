@@ -31,24 +31,30 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // 这里处理一些response 正常放回时的逻辑
-    if(res.code == 200){
-      return res
-    }else if(res.code == 403){
-      // token过期
-      Message.error('登录过期，请重新登录')
-      // 跳转页面
-      // router.push('/about');
-    }else if(res.code == 500){
-      Message.error('服务器错误')
-    }
-    
+    // 请求正常，但是服务端返回的code处理
+    return res
+    // if(res.code == 200){
+    //   return res
+    // }else if(res.code == 403){
+    //   // token过期
+    //   Message.error('登录过期，请重新登录')
+    //   // 跳转页面
+    //   // router.push('/about');
+    // }else if(res.code == 500){
+    //   Message.error('服务器错误')
+    // }else{
+    //   Message.error(res.msg);
+    // }
   },
   error => {
     // 这里处理一些response 出错时的逻辑
     // 上传报错，超时重新请求或者提示错误信息
-    //  1.判断请求超时
+    let res = error.response;
     if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
+      //  1.判断请求超时
       Message.error('请求超时，请刷新页面重试')
+    }else{
+      Message.error(res.data.msg);
     }
   }
 )
